@@ -1,5 +1,7 @@
-const amountInput = document.getElementById("amountInput");
-const currencySelect = document.getElementById("currencySelect");
+const convertButton = document.getElementById('convertButton');
+const amountInput = document.getElementById('amountInput');
+const currencySelect = document.getElementById('currencySelect');
+const resultParagraph = document.getElementById('resultOutput');
 
 async function getExchangeRate(currency) {
 	const url = `https://api.nbp.pl/api/exchangerates/rates/a/${currency}/?format=json`;
@@ -38,13 +40,12 @@ function createLoader() {
 	return loader;
 }
 
-const convertButton = document.getElementById('convertButton');
 convertButton.addEventListener('click', async () => {
 	const amount = amountInput.value;
 	const currency = currencySelect.value;
 	try {
 		const result = await convertToPLN(amount, currency);
-		console.log(`Wynik:${result} PLN`);
+		resultParagraph.innerHTML = `${result} PLN`;
 	} catch (error) {
 		console.error(error);
 	}

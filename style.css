@@ -9,36 +9,18 @@ body {
 }
 
 header {
-	background-color: #f2f2f2;
-	padding: 20px;
-	display: flex;
-	align-items: center;
+	margin: 50px 0px;
 }
 
 img {
-	width: 300px;
-	height: 200px;
-	margin-right: 10px;
-	align-items: center;
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
 }
 
 h1 {
 	text-align: center;
 	margin: 0;
-}
-
-.form-container {
-	max-width: 300px;
-	margin: 0 auto;
-	padding: 20px;
-}
-
-label,
-input,
-.currency-buttons,
-button {
-	display: block;
-	margin-bottom: 10px;
 }
 
 .currency-buttons {
@@ -51,10 +33,34 @@ button {
 }
 
 button {
-	width: 100%;
+	width: 200px;
+}
+p {
+	margin-top: 16px;
+	font-weight: bold;
 }
 
 #resultOutput {
 	font-weight: bold;
 	text-align: center;
+	min-width: 300px;
+}
+#convertButton {
+	font-weight: bold;
+	background-color: gainsboro;
+	border-radius: 5px;
+	background: -webkit-linear-gradient(top, #f0f3f0, #929493);
+}
+#amountInput {
+	border-radius: 5px;
+	background-color: gainsboro;
+	font-weight: bold;
+}
+#currencySelect {
+	border-radius: 5px;
+	background-color: gainsboro;
+	font-weight: bold;
+}
+label {
+	font-weight: bold;
 }
