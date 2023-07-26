@@ -2,7 +2,6 @@ const convertButton = document.getElementById('convertButton');
 const amountInput = document.getElementById('amountInput');
 const currencySelect = document.getElementById('currencySelect');
 const resultParagraph = document.getElementById('resultOutput');
-const errorMessage = document.getElementById('error-message');
 
 async function getExchangeRate(currency) {
 	try {
@@ -22,7 +21,7 @@ async function getExchangeRate(currency) {
 async function convertToPLN(amount, currency) {
 	try {
 		if (!amount || amount <= 0) {
-			throw new Error('Wartość musi być dodatnia');
+			throw new Error('Kwota musi być większa od zera.');
 		}
 		const exchangeRate = await getExchangeRate(currency);
 		const result = amount * exchangeRate;
@@ -32,38 +31,13 @@ async function convertToPLN(amount, currency) {
 		throw error;
 	}
 }
-
-function displayError(message) {
-	errorMessage.textContent = message;
-	errorMessage.style.display = 'block';
-}
-
-function hideError() {
-	errorMessage.style.display = 'none';
-}
-
-amountInput.addEventListener('input', () => {
-	const amount = parseFloat(amountInput.value);
-	if (amount <= 0) {
-		resultParagraph.textContent = '';
-		hideError();
-	}
-});
-
 convertButton.addEventListener('click', async () => {
 	const amount = parseFloat(amountInput.value);
 	const currency = currencySelect.value;
-
-	hideError(); // Ukrywamy komunikat o błędzie przed każdym przeliczeniem
-
 	try {
-		if (amount <= 0) {
-			throw new Error('Wartość musi być dodatnia');
-		}
-
 		const result = await convertToPLN(amount, currency);
-		resultParagraph.textContent = `${result} PLN`;
+		resultParagraph.innerHTML = `${result} PLN`;
 	} catch (error) {
-		displayError(error.message);
+		resultParagraph.innerHTML = 'Błąd podczas przeliczania waluty.';
 	}
 });
