@@ -54,7 +54,7 @@ convertButton.addEventListener('click', async () => {
 	const amount = parseFloat(amountInput.value);
 	const currency = currencySelect.value;
 
-	hideError();
+	hideError(); // Ukrywamy komunikat o błędzie przed każdym przeliczeniem
 
 	try {
 		if (amount <= 0) {
