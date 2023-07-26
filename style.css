@@ -1,5 +1,6 @@
 * {
 	background-color: antiquewhite;
+	box-sizing: border-box;
 }
 
 body {
@@ -35,6 +36,7 @@ h1 {
 button {
 	width: 200px;
 }
+
 p {
 	margin-top: 16px;
 	font-weight: bold;
@@ -45,22 +47,19 @@ p {
 	text-align: center;
 	min-width: 300px;
 }
+
 #convertButton {
 	font-weight: bold;
-	background-color: gainsboro;
 	border-radius: 5px;
 	background: -webkit-linear-gradient(top, #f0f3f0, #929493);
 }
-#amountInput {
+
+.form-elements {
 	border-radius: 5px;
 	background-color: gainsboro;
 	font-weight: bold;
 }
-#currencySelect {
-	border-radius: 5px;
-	background-color: gainsboro;
-	font-weight: bold;
-}
+
 label {
 	font-weight: bold;
 }

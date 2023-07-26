@@ -4,49 +4,41 @@ const currencySelect = document.getElementById('currencySelect');
 const resultParagraph = document.getElementById('resultOutput');
 
 async function getExchangeRate(currency) {
-	const url = `https://api.nbp.pl/api/exchangerates/rates/a/${currency}/?format=json`;
 	try {
-		const loader = createLoader();
-		document.body.appendChild(loader);
-
+		if (!currency) {
+			throw new Error('Waluta nie została wybrana.');
+		}
+		const url = `https://api.nbp.pl/api/exchangerates/rates/a/${currency}/?format=json`;
 		const response = await fetch(url);
 		const data = await response.json();
-		document.body.removeChild(loader);
-
 		return data.rates[0].mid;
 	} catch (error) {
-		console.error(`Nie udało się pobrać kursu waluty. Błąd:${error}`);
-		document.body.removeChild(loader);
+		console.error(`Nie udało się pobrać kursu waluty. Błąd: ${error}`);
+		throw error;
 	}
 }
 
 async function convertToPLN(amount, currency) {
 	try {
-		const exchangeRate = await getExchangeRate(currency);
-		if (exchangeRate) {
-			const result = amount * exchangeRate;
-			return result.toFixed(2);
-		} else {
-			return 'Błąd podczas przeliczania waluty.';
+		if (!amount || amount <= 0) {
+			throw new Error('Kwota musi być większa od zera.');
 		}
+		const exchangeRate = await getExchangeRate(currency);
+		const result = amount * exchangeRate;
+		return result.toFixed(2);
 	} catch (error) {
 		console.error(error);
+		throw error;
 	}
 }
 
-function createLoader() {
-	const loader = document.createElement('div');
-	loader.classList.add('loader');
-	return loader;
-}
-
 convertButton.addEventListener('click', async () => {
-	const amount = amountInput.value;
+	const amount = parseFloat(amountInput.value);
 	const currency = currencySelect.value;
 	try {
 		const result = await convertToPLN(amount, currency);
 		resultParagraph.innerHTML = `${result} PLN`;
 	} catch (error) {
-		console.error(error);
+		resultParagraph.innerHTML = 'Błąd podczas przeliczania waluty.';
 	}
 });
